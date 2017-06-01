@@ -42,11 +42,13 @@ class AuthorityController extends MisController
         $credentials = [
             'name' => $request->input('username'),
             'pw' => $request->input('password'),
+        	
             //'user_type' => 'Manager',
             //'state'=> 0,
         ];
+    
         //
-        if (Auth::attempt($credentials, $request->has('remember'))) {
+        if (Auth::attempt($credentials)) {
         	
             event(new UserLogin(user('object')));  //触发登录事件
             session(['switch_uids'=>array()]);	//初始化；
